@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Disruptive Technologies | BUAD 683</title>
+<style>
+  :root{
+    --maroon: #6a1e2f;
+    --maroon-dark: #4a1520;
+    --gold: #c9a35c;
+    --gold-light: #e8d4a4;
+    --cream: #faf7f0;
+    --ink: #2a2320;
+    --slate: #5b5450;
+    --line: #e3dccb;
+    --white: #ffffff;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family: 'Georgia', 'Iowan Old Style', serif;
+    background: var(--cream);
+    color: var(--ink);
+    line-height:1.65;
+  }
+  .wrap{max-width:900px; margin:0 auto; padding: 0 24px 80px;}
+
+  /* HERO */
+  .hero{
+    background: linear-gradient(135deg, var(--maroon) 0%, var(--maroon-dark) 100%);
+    color: var(--white);
+    padding: 64px 24px 56px;
+    position: relative;
+    overflow:hidden;
+  }
+  .hero::after{
+    content:"";
+    position:absolute; right:-60px; top:-60px;
+    width:280px; height:280px; border-radius:50%;
+    border: 2px solid rgba(201,163,92,0.35);
+  }
+  .hero::before{
+    content:"";
+    position:absolute; right:20px; top:40px;
+    width:180px; height:180px; border-radius:50%;
+    border: 2px solid rgba(201,163,92,0.25);
+  }
+  .eyebrow{
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 12px;
+    color: var(--gold-light);
+    margin: 0 0 14px;
+  }
+  .hero h1{
+    font-size: clamp(28px, 4.5vw, 42px);
+    margin: 0 0 16px;
+    max-width: 640px;
+    font-weight: 700;
+  }
+  .hero p.lede{
+    max-width: 600px;
+    font-size: 17px;
+    color: rgba(255,255,255,0.88);
+    margin: 0;
+  }
+
+  section{padding: 48px 0; border-bottom: 1px solid var(--line);}
+  section:last-of-type{border-bottom:none;}
+  h2{
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    color: var(--maroon);
+    font-size: 24px;
+    letter-spacing: 0.3px;
+    margin: 0 0 6px;
+    display:flex; align-items:center; gap:12px;
+  }
+  h2 .tag{
+    font-size:11px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    background: var(--gold);
+    color: var(--maroon-dark);
+    padding: 4px 10px;
+    border-radius: 3px;
+    font-weight:700;
+  }
+  h3{color: var(--maroon-dark); font-size:18px; margin: 28px 0 8px;}
+  p{color: var(--ink); font-size:16px;}
+  .cite{font-family:'Helvetica Neue', Arial, sans-serif; font-size:12.5px; color: var(--slate); margin-top:-6px;}
+
+  /* TWO-COLUMN DEFINITION BOXES */
+  .net-types{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:16px;
+    margin: 20px 0;
+  }
+  @media (max-width:640px){ .net-types{grid-template-columns:1fr;} }
+  .net-box{
+    border: 1px dashed var(--gold);
+    background: #fffdf9;
+    padding: 18px 20px;
+    border-radius:6px;
+  }
+  .net-box strong{color:var(--maroon);}
+
+  /* CALLOUT */
+  .callout{
+    background: var(--maroon);
+    color: var(--white);
+    border-radius: 8px;
+    padding: 26px 28px;
+    margin: 24px 0;
+    position:relative;
+  }
+  .callout .q{
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 13px;
+    text-transform:uppercase;
+    letter-spacing:2px;
+    color: var(--gold-light);
+    margin:0 0 10px;
+  }
+  .callout p{color: rgba(255,255,255,0.95); margin:0; font-size:16px;}
+  .callout p + p{margin-top:10px;}
+
+  /* CHARACTERISTIC CARDS */
+  .compare{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 28px 0;
+  }
+  @media (max-width:640px){ .compare{grid-template-columns:1fr;} }
+  .card{
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-top: 4px solid var(--maroon);
+    padding: 22px 22px 20px;
+    border-radius: 6px;
+  }
+  .card.gold{ border-top-color: var(--gold); }
+  .card h4{
+    font-family:'Helvetica Neue', Arial, sans-serif;
+    margin:0 0 4px;
+    font-size:13px;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    color: var(--slate);
+  }
+  .card .big{
+    font-size: 20px;
+    font-weight:700;
+    color: var(--maroon-dark);
+    margin: 0 0 10px;
+  }
+  .card ul{margin:10px 0 0; padding-left:20px;}
+  .card li{margin-bottom:6px; font-size:15px;}
+
+  /* NUMBERED CHARACTERISTIC STRIP */
+  .num-strip{ margin: 24px 0; }
+  .num-item{
+    display:flex;
+    gap:18px;
+    align-items:flex-start;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .num-item:last-child{ border-bottom:none; }
+  .num-badge{
+    flex-shrink:0;
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    background: var(--maroon);
+    color: var(--gold-light);
+    font-family:'Helvetica Neue', Arial, sans-serif;
+    font-weight:700;
+    font-size: 15px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .num-item h4{
+    margin:0 0 4px;
+    color: var(--maroon-dark);
+    font-family:'Helvetica Neue', Arial, sans-serif;
+    font-size:16px;
+  }
+  .num-item p{ margin:0; font-size:15px; }
+
+  /* S-CURVE DIAGRAM */
+  .diagram-panel{
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 20px 20px 8px;
+    margin: 22px 0;
+  }
+  .diagram-toggle{
+    display:flex;
+    gap: 10px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+  .toggle-btn{
+    font-family:'Helvetica Neue', Arial, sans-serif;
+    font-size: 12.5px;
+    letter-spacing: 0.5px;
+    font-weight: 700;
+    padding: 9px 16px;
+    border-radius: 20px;
+    border: 1.5px solid var(--maroon);
+    background: var(--white);
+    color: var(--maroon);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .toggle-btn:hover{ background: var(--gold-light); }
+  .toggle-btn.active{
+    background: var(--maroon);
+    color: var(--white);
+  }
+  .diagram-caption{
+    font-family:'Helvetica Neue', Arial, sans-serif;
+    font-size: 13.5px;
+    color: var(--slate);
+    padding: 6px 4px 16px;
+    min-height: 60px;
+  }
+  .diagram-caption strong{ color: var(--maroon-dark); }
+  svg text{ font-family: 'Helvetica Neue', Arial, sans-serif; }
+
+  /* REFLECTION QUESTIONS */
+  .reflect{
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--maroon);
+    border-radius: 6px;
+    padding: 20px 22px;
+    margin: 18px 0;
+  }
+  .reflect label{
+    display:block;
+    font-family:'Helvetica Neue', Arial, sans-serif;
+    font-weight:700;
+    color: var(--maroon-dark);
+    margin-bottom:10px;
+    font-size:15px;
+  }
+  .reflect textarea{
+    width:100%;
+    min-height:90px;
+    padding:12px;
+    border:1px solid var(--line);
+    border-radius:4px;
+    font-family: Georgia, serif;
+    font-size:15px;
+    resize:vertical;
+    background:#fffefb;
+  }
+  .reflect textarea:focus{outline:2px solid var(--gold); border-color:var(--gold);}
+  .save-note{
+    font-family:'Helvetica Neue', Arial, sans-serif;
+    font-size:12px;
+    color: var(--slate);
+    margin-top:8px;
+  }
+  .save-note .ok{color:#3a7a3a; font-weight:700;}
+
+  /* INSTRUCTOR RESPONSE REVEAL — "wax seal" unlock */
+  .instructor-toggle{ margin-top:16px; }
+  .seal-btn{
+    background: var(--maroon);
+    color: var(--white);
+    border: none;
+    padding: 10px 20px 10px 16px;
+    border-radius: 30px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 12.5px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 700;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 2px 6px rgba(74,21,32,0.28);
+    transition: background 0.2s, transform 0.15s;
+  }
+  .seal-btn:hover{ background: var(--maroon-dark); transform: translateY(-1px); }
+  .seal-btn:active{ transform: translateY(0); }
+  .seal-btn .seal-icon{
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, var(--gold-light), var(--gold) 70%);
+    box-shadow: inset 0 0 0 2px var(--maroon-dark);
+    display: inline-block;
+    position: relative;
+    transition: transform 0.4s ease;
+  }
+  .seal-btn.open .seal-icon{ transform: rotate(200deg) scale(0.9); }
+  .seal-btn .seal-icon::after{
+    content:"";
+    position:absolute; inset:5px;
+    border-radius:50%;
+    border: 1px solid rgba(74,21,32,0.35);
+  }
+  .instructor-note{
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.5s ease, opacity 0.4s ease, margin-top 0.4s ease;
+  }
+  .instructor-note.open{
+    max-height: 700px;
+    opacity: 1;
+    margin-top: 14px;
+  }
+  .instructor-note-inner{
+    background: linear-gradient(135deg, #fffdf8 0%, var(--gold-light) 130%);
+    border: 1px solid var(--gold);
+    border-radius: 8px;
+    padding: 18px 20px 16px;
+    position: relative;
+  }
+  .instructor-note-inner::before{
+    content: "Professor Murray's Response";
+    display: block;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--maroon);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .instructor-note-inner p{
+    margin: 0;
+    font-size: 15px;
+    color: var(--ink);
+    line-height: 1.6;
+  }
+  .instructor-note-inner p + p{ margin-top: 10px; }
+
+  /* FLASHCARDS */
+  .flash-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+    margin: 24px 0;
+  }
+  .flashcard{
+    perspective: 1000px;
+    height: 170px;
+    cursor:pointer;
+  }
+  .flashcard-inner{
+    position:relative;
+    width:100%; height:100%;
+    transition: transform 0.55s cubic-bezier(.4,.2,.2,1);
+    transform-style: preserve-3d;
+  }
+  .flashcard.flipped .flashcard-inner{ transform: rotateY(180deg); }
+  .flashcard-face{
+    position:absolute; inset:0;
+    border-radius:8px;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center;
+    padding: 18px;
+    backface-visibility:hidden;
+    font-family:'Helvetica Neue', Arial, sans-serif;
+  }
+  .flashcard-front{
+    background: var(--maroon);
+    color: var(--white);
+  }
+  .flashcard-front .term{font-size:17px; font-weight:700;}
+  .flashcard-front .hint{font-size:11px; color: var(--gold-light); margin-top:10px; letter-spacing:1px; text-transform:uppercase;}
+  .flashcard-back{
+    background: var(--gold-light);
+    color: var(--maroon-dark);
+    transform: rotateY(180deg);
+    font-size:13.5px;
+    line-height:1.5;
+  }
+
+  /* FOOTER NAV */
+  .footer-note{
+    text-align:center;
+    font-family:'Helvetica Neue', Arial, sans-serif;
+    font-size:13px;
+    color: var(--slate);
+    padding: 30px 24px 10px;
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="wrap" style="padding:0;">
+    <p class="eyebrow">BUAD 683 &middot; Information &amp; Knowledge Management &middot; Async Module</p>
+    <h1>Disruptive Technologies</h1>
+    <p class="lede">Why the most dangerous competitor is rarely the one building a better version of what you already sell.</p>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <section>
+    <h2><span class="tag">Core Concept</span> Sustaining vs. Disruptive Technologies</h2>
+    <p>Every technology follows some trajectory of improvement over time. The critical managerial skill isn't spotting new technology — it's telling the difference between a technology that will <em>sustain</em> your current competitive position and one that will <em>disrupt</em> it.</p>
+
+    <div class="net-types">
+      <div class="net-box">
+        <strong>Sustaining Technology</strong>
+        <p style="margin:8px 0 0;">A technology that maintains or rejuvenates the current rate of performance improvement of the products and services that use it. It offers the same set of attributes customers already value, just delivered with greater performance, in direct response to market demand.</p>
+      </div>
+      <div class="net-box">
+        <strong>Disruptive Technology</strong>
+        <p style="margin:8px 0 0;">A technology with different performance attributes than the one currently in use, whose rate of improvement outpaces what the market actually demands — eventually overtaking the incumbent approach entirely.</p>
+      </div>
+    </div>
+    <p class="cite">Definitions adapted from Piccoli, G., &amp; Pigni, F. (2021). <em>Information Systems for Managers with Cases.</em></p>
+
+    <p>Sustaining innovation is what most R&amp;D budgets are built to produce: faster processors, longer battery life, sharper displays — improvements along a trajectory customers already understand and are willing to pay for. Disruptive innovation is different in kind, not just degree. It often starts by performing <em>worse</em> on the metrics that matter to a firm's best customers today, which is exactly why incumbents tend to dismiss it — right up until it doesn't.</p>
+  </section>
+
+  <section>
+    <h2><span class="tag">Interactive</span> Reading the Performance Trajectory</h2>
+    <p>The classic way to visualize this dynamic is the performance trajectory chart: time on the horizontal axis, performance on the vertical axis. Toggle between the two views below to see how a sustaining trajectory compares to a disruptive one crossing beneath it.</p>
+
+    <div class="diagram-panel">
+      <div class="diagram-toggle">
+        <button class="toggle-btn active" data-view="sustaining">Sustaining Technology</button>
+        <button class="toggle-btn" data-view="disruptive">Disruptive Technology</button>
+        <button class="toggle-btn" data-view="both">Both, Side by Side</button>
+      </div>
+
+      <svg viewBox="0 0 640 320" style="width:100%; height:auto;">
+        <!-- Axes -->
+        <line x1="60" y1="20" x2="60" y2="270" stroke="#5b5450" stroke-width="1.5"/>
+        <line x1="60" y1="270" x2="600" y2="270" stroke="#5b5450" stroke-width="1.5"/>
+        <text x="30" y="150" fill="#5b5450" font-size="13" transform="rotate(-90 30 150)" text-anchor="middle">Performance</text>
+        <text x="330" y="300" fill="#5b5450" font-size="13" text-anchor="middle">Time</text>
+
+        <!-- Market demand dotted line -->
+        <path d="M 60 220 C 220 190, 400 130, 600 90" fill="none" stroke="#5b5450" stroke-width="1.5" stroke-dasharray="5,5" opacity="0.7"/>
+        <text x="470" y="80" fill="#5b5450" font-size="12">Market demand</text>
+
+        <!-- Sustaining curve (S-curve) -->
+        <path id="curveSustaining" d="M 60 250 C 140 245, 180 60, 320 35 C 420 20, 500 15, 600 12"
+          fill="none" stroke="#6a1e2f" stroke-width="3.5"/>
+        <text id="labelSustaining" x="360" y="30" fill="#6a1e2f" font-size="13" font-weight="700">Sustaining trajectory</text>
+
+        <!-- Disruptive curve, starts low, steeper, crosses market demand -->
+        <path id="curveDisruptive" d="M 220 268 C 300 262, 380 200, 460 120 C 510 75, 550 45, 600 35"
+          fill="none" stroke="#c9a35c" stroke-width="3.5" opacity="0"/>
+        <text id="labelDisruptive" x="430" y="205" fill="#c9a35c" font-size="13" font-weight="700" opacity="0">Disruptive trajectory</text>
+
+        <!-- Crossover marker -->
+        <circle id="crossDot" cx="470" cy="108" r="5" fill="#4a1520" opacity="0"/>
+      </svg>
+
+      <div class="diagram-caption" id="diagramCaption">
+        The maroon curve shows a sustaining technology's performance climbing along a classic S-curve — rapid gains early, then leveling off as the technology matures, generally tracking just ahead of market demand.
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="tag">Core Concept</span> The Two Defining Characteristics</h2>
+    <p>Per Piccoli and Pigni (2021), a technology qualifies as disruptive when it exhibits <strong>both</strong> of the following characteristics — either one alone is not enough:</p>
+
+    <div class="num-strip">
+      <div class="num-item">
+        <div class="num-badge">1</div>
+        <div>
+          <h4>Different Characteristics</h4>
+          <p>It offers a different set of attributes than the technology currently in use at the firm — not simply a faster or cheaper version of the same thing, but a genuinely different value proposition (often smaller, simpler, cheaper, or more convenient, even if less powerful at first).</p>
+        </div>
+      </div>
+      <div class="num-item">
+        <div class="num-badge">2</div>
+        <div>
+          <h4>Performance Improvement Rate Exceeds Market Demand</h4>
+          <p>Its rate of performance improvement is greater than the rate the market actually demands. Because of this, it eventually "overshoots" what customers need on the old metric, while also delivering something new they hadn't been asking for.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <p class="q">Why Successful Firms Miss It</p>
+      <p>Incumbents usually aren't blindsided by disruptive technology because they failed to notice it — they often see it early. The trap is that listening closely to their best, most profitable customers (good management practice, by every conventional measure) leads them to systematically underinvest in a technology those same customers don't yet want.</p>
+      <p>By the time the disruptive technology's performance crosses the market-demand line, the incumbent's resource allocation process has already starved the new approach of investment for years — and a smaller, more nimble entrant owns the emerging market instead.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="tag">Reflect</span> Answer &amp; Compare</h2>
+    <p>Type your response in each box below, then unseal the instructor's response to compare your thinking.</p>
+
+    <div class="reflect">
+      <label>1. Think of a technology, product, or service that disrupted an industry you're familiar with. Walk through both characteristics — what different attributes did it offer, and how did its improvement rate eventually outpace market demand?</label>
+      <textarea data-key="q1" placeholder="Type your answer here..."></textarea>
+      <div class="save-note">Not yet saved</div>
+      <div class="instructor-toggle">
+        <button class="seal-btn" type="button" data-target="note-q1"><span class="seal-icon"></span>Unseal Professor Murray's Response</button>
+      </div>
+      <div class="instructor-note" id="note-q1">
+        <div class="instructor-note-inner">
+          <p>A useful example from higher education itself is the rise of asynchronous online course delivery. Early online courses offered a different attribute set than the in-person lecture: lower cost, greater flexibility, and accessibility for working adults — but at first, weaker production quality, less real-time interaction, and less prestige than a traditional classroom.</p>
+          <p>Over time, the tools supporting online delivery (video, interactive modules, learning analytics, adaptive assessment) improved at a rate that outpaced what most students actually needed to earn a rigorous credential. What began as a lower-quality alternative for a narrow niche — working professionals who couldn't attend in person — became a legitimate, sometimes preferred, delivery mode for a much broader population, challenging institutions that built their entire model around in-person instruction.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="reflect">
+      <label>2. Why might a well-run, customer-focused organization be especially vulnerable to disruptive technology, rather than protected by its discipline and customer focus?</label>
+      <textarea data-key="q2" placeholder="Type your answer here..."></textarea>
+      <div class="save-note">Not yet saved</div>
+      <div class="instructor-toggle">
+        <button class="seal-btn" type="button" data-target="note-q2"><span class="seal-icon"></span>Unseal Professor Murray's Response</button>
+      </div>
+      <div class="instructor-note" id="note-q2">
+        <div class="instructor-note-inner">
+          <p>Well-run organizations typically build their resource allocation process around listening to their most profitable, most vocal current customers, and funding the projects with the clearest near-term return. Disruptive technologies almost never look attractive by those criteria at first — they usually serve a smaller, lower-margin segment, and underperform on the metrics current customers care about most.</p>
+          <p>That means the very discipline that makes an organization excellent at serving its existing market — rigorous financial hurdles, deep customer listening, efficient resource allocation — is often what causes it to systematically defund or ignore the disruptive alternative until it's too late to catch up. The organizational strength becomes a blind spot.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="reflect">
+      <label>3. If you were an executive who suspected a disruptive technology was emerging in your market, what would you do differently from how you manage a normal, sustaining R&amp;D investment?</label>
+      <textarea data-key="q3" placeholder="Type your answer here..."></textarea>
+      <div class="save-note">Not yet saved</div>
+      <div class="instructor-toggle">
+        <button class="seal-btn" type="button" data-target="note-q3"><span class="seal-icon"></span>Unseal Professor Murray's Response</button>
+      </div>
+      <div class="instructor-note" id="note-q3">
+        <div class="instructor-note-inner">
+          <p>Rather than evaluating the disruptive opportunity with the same financial hurdles and market-sizing logic used for sustaining projects, many executives create a separate, smaller unit — often deliberately insulated from the core business's customers, margins, and reporting structure — to pursue it. This lets the new initiative be judged against the size and needs of the emerging market it's actually trying to serve, rather than being killed for looking too small relative to the core business.</p>
+          <p>Just as importantly, this means being willing to fund a technology that current best customers say they don't want, and tracking its progress against the emerging market's trajectory rather than the existing market's demand curve.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="tag">Review</span> Flashcards — Disruptive Technologies</h2>
+    <p>Click any card to flip it and check the definition. Use these to self-test before the next synchronous session.</p>
+
+    <div class="flash-grid" id="flashGrid"></div>
+  </section>
+
+</div>
+
+<div class="footer-note">
+  BUAD 683 &middot; Information &amp; Knowledge Management &middot; University of Redlands School of Business
+</div>
+
+<script>
+  // Flashcard data
+  const cards = [
+    {term:"Sustaining Technology", def:"A technology that maintains or rejuvenates the current rate of performance improvement of products and services that use it, in response to market demand."},
+    {term:"Disruptive Technology", def:"A technology with different attributes than the current one in use, whose performance improvement rate exceeds what the market demands."},
+    {term:"S-Curve", def:"A common shape for a technology's performance trajectory over time: slow early gains, a period of rapid improvement, then a leveling off as the technology matures."},
+    {term:"Performance Trajectory", def:"The path of a technology's performance improvement over time, often compared against the market's actual demand for performance."},
+    {term:"Market Demand Curve", def:"The rate of performance improvement customers actually need or will pay for, which can differ from the rate a technology is capable of improving."},
+    {term:"Overshooting", def:"When a technology's performance improves beyond what the market demands on the metrics that mattered most historically."},
+    {term:"Resource Allocation Process", def:"The internal process by which a firm decides which projects and technologies get funded — often biased toward serving current, profitable customers."},
+    {term:"Incumbent's Dilemma", def:"The challenge facing established firms whose disciplined focus on current customers causes them to underinvest in emerging disruptive technologies."},
+    {term:"Crossover Point", def:"The point at which a disruptive technology's performance trajectory meets or exceeds the market demand curve, making it viable for the mainstream market."}
+  ];
+
+  const grid = document.getElementById('flashGrid');
+  cards.forEach((c, i) => {
+    const el = document.createElement('div');
+    el.className = 'flashcard';
+    el.innerHTML = `
+      <div class="flashcard-inner">
+        <div class="flashcard-face flashcard-front">
+          <div class="term">${c.term}</div>
+          <div class="hint">Click to flip</div>
+        </div>
+        <div class="flashcard-face flashcard-back">${c.def}</div>
+      </div>
+    `;
+    el.addEventListener('click', () => el.classList.toggle('flipped'));
+    grid.appendChild(el);
+  });
+
+  // Reflection textarea autosave (localStorage)
+  document.querySelectorAll('.reflect textarea').forEach(ta => {
+    const key = 'buad683_disruptive_tech_' + ta.dataset.key;
+    const noteEl = ta.parentElement.querySelector('.save-note');
+    const saved = localStorage.getItem(key);
+    if (saved) {
+      ta.value = saved;
+      noteEl.innerHTML = '<span class="ok">Saved</span> — restored from your last visit';
+    }
+    let timer;
+    ta.addEventListener('input', () => {
+      noteEl.textContent = 'Typing...';
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        localStorage.setItem(key, ta.value);
+        noteEl.innerHTML = '<span class="ok">Saved</span> to this browser';
+      }, 600);
+    });
+  });
+
+  // Instructor response "wax seal" reveal toggles
+  document.querySelectorAll('.seal-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const note = document.getElementById(btn.dataset.target);
+      const isOpen = note.classList.toggle('open');
+      btn.classList.toggle('open', isOpen);
+      btn.innerHTML = isOpen
+        ? '<span class="seal-icon"></span>Hide Professor Murray\'s Response'
+        : '<span class="seal-icon"></span>Unseal Professor Murray\'s Response';
+    });
+  });
+
+  // S-curve diagram toggle
+  (function(){
+    const buttons = document.querySelectorAll('.toggle-btn');
+    const curveSustaining = document.getElementById('curveSustaining');
+    const labelSustaining = document.getElementById('labelSustaining');
+    const curveDisruptive = document.getElementById('curveDisruptive');
+    const labelDisruptive = document.getElementById('labelDisruptive');
+    const crossDot = document.getElementById('crossDot');
+    const caption = document.getElementById('diagramCaption');
+
+    const captions = {
+      sustaining: "The maroon curve shows a sustaining technology's performance climbing along a classic S-curve — rapid gains early, then leveling off as the technology matures, generally tracking just ahead of market demand.",
+      disruptive: "The gold curve enters below market demand — it starts out underperforming on the metrics current customers value most. But its steeper improvement rate lets it cross the market demand line, at which point it becomes viable for the mainstream and can displace the incumbent's sustaining trajectory.",
+      both: "Seen side by side, the incumbent (maroon) keeps improving steadily along its own trajectory, largely unaware that the entrant (gold) is closing the gap from below. By the time the two curves cross, the incumbent's resource allocation process has often already underfunded a response for years."
+    };
+
+    function setView(view){
+      buttons.forEach(b => b.classList.toggle('active', b.dataset.view === view));
+      caption.textContent = captions[view];
+
+      if (view === 'sustaining'){
+        curveSustaining.style.opacity = 1; labelSustaining.style.opacity = 1;
+        curveDisruptive.style.opacity = 0; labelDisruptive.style.opacity = 0;
+        crossDot.style.opacity = 0;
+      } else if (view === 'disruptive'){
+        curveSustaining.style.opacity = 0.15; labelSustaining.style.opacity = 0.15;
+        curveDisruptive.style.opacity = 1; labelDisruptive.style.opacity = 1;
+        crossDot.style.opacity = 1;
+      } else {
+        curveSustaining.style.opacity = 1; labelSustaining.style.opacity = 1;
+        curveDisruptive.style.opacity = 1; labelDisruptive.style.opacity = 1;
+        crossDot.style.opacity = 1;
+      }
+    }
+
+    buttons.forEach(btn => btn.addEventListener('click', () => setView(btn.dataset.view)));
+    setView('sustaining');
+  })();
+</script>
+
+</body>
+</html>
